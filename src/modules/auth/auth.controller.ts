@@ -1,8 +1,22 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
+import { Controller, Post } from '@nestjs/common'
+import { AuthService } from './auth.service'
 
-import { Controller } from '@nestjs/common'
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
-@Controller()
-export class AuthController {}
+  @Post('register')
+  register() {
+    return this.authService.register()
+  }
+
+  @Post('login')
+  login() {
+    return this.authService.login()
+  }
+
+  @Post('logout')
+  logout() {
+    return this.authService.logout()
+  }
+}
