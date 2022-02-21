@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
+import * as Requests from './types/requests'
 
 @Injectable()
 export class AuthService {
-  register() {
-    return 'Registered B)'
+  register(userData: Requests.Register) {
+    return `Registered B) ${userData.name}`
   }
 
   login() {
