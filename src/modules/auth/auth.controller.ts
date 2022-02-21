@@ -1,4 +1,10 @@
-import { Controller, Post, Body } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Body,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common'
 import { AuthService } from './auth.service'
 import * as Requests from './types/requests'
 
@@ -7,8 +13,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  register(@Body() userData: Requests.Register) {
-    return this.authService.register(userData)
+  async register(@Body() userData: Requests.Register) {
+    if (await this.authService.checkIfExist(userData)) {
+      throw new HttpException('existing_data', HttpStatus.BAD_REQUEST)
+    }
+
+    return await this.authService.register(userData)
   }
 
   @Post('login')

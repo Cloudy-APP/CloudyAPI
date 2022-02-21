@@ -1,8 +1,6 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const AppConfig = {
+export const AppConfig = {
   port: process.env.PORT,
 }
-
-export default AppConfig
